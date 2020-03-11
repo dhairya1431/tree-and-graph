@@ -1,2 +1,3 @@
-# Solution-code-for-Codevie-Round-1
-Here the solution of de is provided
+# Some theory for graph and tree
+
+These repo is for some basic problrms upon graph and tree problems 
