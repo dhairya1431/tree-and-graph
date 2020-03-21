@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<int> g[100];
+int intime[102],low[102];
+int timer=0;
+int vis[102]={0};
+
+void dfs(int node,int par)
+{
+   vis[node] = 1;
+   intime[node]=low[node]=timer;
+   timer++;
+   for(int ch : g[node])
+   {
+       if(ch == par) continue;
+       if(vis[ch])
+       low[node]=min(low[node],intime[ch]);
+       else
+       {
+           dfs(ch,node);
+           
+           if(low[ch] > intime[node])
+           cout<<node<<" "<<ch<<endl;
+           
+           low[node]=min(low[node],low[ch]);
+       }
+   }
+}
+
+int main()
+{
+    int n,m,x,y;
+    cin>>n>>m;
+    while(m --)
+    {
+        cin>>x>>y;
+        g[x].push_back(y);
+        g[y].push_back(x);
+    }
+    for(int i=1;i<=n;i++)
+    {
+        if(!vis[i])
+        dfs(i,-1);
+    }
+}
