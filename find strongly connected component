@@ -1,0 +1,67 @@
+
+
+
+/*
+<-------------------------------------------------------------------------------------------------------->
+ Used only for Directed Graphs
+<-------------------------------------------------------------------------------------------------------->*/
+#include<bits/stdc++.h>
+using namespace std;
+#define pb push_back
+std::vector< int > g[1000000+10] , gr[1000000 +10];
+int vis[1000000+10];
+
+std::stack<int> ss ;
+void dfs1(int node)
+{
+    vis[node]=1;
+    for(int ch : g[node])
+    {
+        if(!vis[ch])
+        dfs1(ch);
+    }
+    
+    ss.push(node);
+}
+
+void dfs2(int node)
+{
+    vis[node]=1;
+    cout<<node<<" ";
+    for(int ch: gr[node])
+    {
+        if(!vis[ch])
+        dfs2(ch);
+    }
+}
+
+int main()
+{
+    int n,m;
+    cin>>n>>m;
+    
+    while(m--)
+    {
+        int u,v;
+        cin>>u>>v;
+        g[u].pb(v);
+        gr[v].pb(u);
+    }
+    for(int i=1;i<=n;i++)
+    {
+        if(!vis[i])
+        dfs1(i);
+    }
+    memset(vis,0,sizeof(vis));
+    
+   while(ss.size()!=0)
+   {
+       int node=ss.top();
+       ss.pop();
+       if(!vis[node])
+       {
+           cout<<"\nnew componenet\n";
+           dfs2(node);
+       }
+   }
+}
