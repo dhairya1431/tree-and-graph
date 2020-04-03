@@ -5,16 +5,18 @@ using namespace std;
 #define mp make_pair
 #define ipair pair<ll,ll>
 ll a[10]={0};
+vector<pair<ll,ll>> graph[100];
 
-void dij(ll src,vector<pair<ll,ll>> graph[])
+
+void dij(ll src,ll n)
 {
     priority_queue<ipair,vector<ipair>,greater<ipair>> pq;
     
-    ll dis[10];
-    for(ll i=0;i<10;i++)
+    ll dis[n+10];
+    for(ll i=1;i<=n;i++)
     {
         dis[i]=INT_MAX;
-        //cout<<i<< " "<<dis[i]<<endl;
+       // cout<<i<< " "<<dis[i]<<endl;
     }
     pq.push(mp(0,src));
     dis[src]=0;
@@ -22,6 +24,7 @@ void dij(ll src,vector<pair<ll,ll>> graph[])
     while(!pq.empty())
     {
         ll u=pq.top().second;
+        
         pq.pop();
         for(ll i=0;i<graph[u].size();i++)
         {
@@ -38,7 +41,7 @@ void dij(ll src,vector<pair<ll,ll>> graph[])
         }
     }
     
-    for(ll i=0;i<5;i++)
+    for(ll i=1;i<=n;i++)
     {
         cout<<i<< " "<<dis[i]<<endl;
     }
@@ -46,14 +49,15 @@ void dij(ll src,vector<pair<ll,ll>> graph[])
 int main()
 {
     ll n;cin>>n;
-    vector<pair<ll,ll>> graph[n];
+    ll m;cin>>m;
     
-    for(ll i=0;i<=5;i++)
+    
+    while(m--)
     {
         ll u,v,w;cin>>u>>v>>w;
         graph[u].pb(mp(v,w));
         graph[v].pb(mp(u,w));
-    
+    }
 
-    dij(0,graph);
+    dij(1,n);
 }
