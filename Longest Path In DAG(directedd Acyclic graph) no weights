@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<int> g[100000+2];
+int vis[100000+2];
+
+int maxx=0;
+
+int dfs(int node,int cnt)
+{
+
+    vis[node]=0;
+   
+    for(int ch : g[node])
+    {
+        if(vis[ch]==-1)
+        {
+            //cout<<node<<" "<<ch<<endl;
+            vis[ch]=dfs(ch,cnt+1);
+        }
+        vis[node]=max(vis[node],1+vis[ch]);
+    }
+    maxx=max(maxx,vis[node]);
+    return vis[node];
+}
+int main()
+{
+    int n,m;cin>>n>>m;
+    memset(vis,-1,sizeof(vis));
+   while(m--)
+   {
+       int u,v;
+       cin>>u>>v;
+       g[u].push_back(v);
+   }
+   for(int i=1;i<=n;i++)
+   {
+      if(vis[i]==-1)
+      {
+          vis[i]=dfs(i,0);
+      }
+   }
+   /*cout<<endl<<endl<<endl;
+   for(int i=1;i<=n;i++) cout<<vis[i]<<" ";
+   cout<<endl;*/
+   cout<<maxx<<endl;
+}
